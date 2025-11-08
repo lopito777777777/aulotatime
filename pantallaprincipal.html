@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pantalla Principal - AulaTime</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(180deg, #45151B, #C74E51);
+      color: #FBDE9C;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: 2.2em;
+      color: #FBDE9C;
+      margin-bottom: 40px;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    }
+
+    .botones {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 80%;
+      max-width: 400px;
+    }
+
+    button {
+      background-color: #EA9DAE; /* Mauvelous */
+      color: #45151B; /* Chocolate Kisses */
+      border: none;
+      padding: 15px;
+      font-size: 1.1em;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    button:hover {
+      background-color: #F99256; /* Royal Orange */
+      color: #FBDE9C; /* Caramel */
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .logout {
+      margin-top: 40px;
+      background: #C74E51;
+      color: #FBDE9C;
+      padding: 10px 20px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .logout:hover {
+      background: #45151B;
+      transform: scale(1.05);
+    }
+
+    footer {
+      position: absolute;
+      bottom: 10px;
+      color: #FBDE9C;
+      font-size: 0.9em;
+      opacity: 0.8;
+    }
+  </style>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+</head>
+<body>
+  <h1>Eventos Escolares</h1>
+
+  <div class="botones">
+    <button onclick="abrir('acto.html')">🎓 Acto Escolar</button>
+    <button onclick="abrir('estudiantina.html')">🎉 Estudiantina</button>
+    <button onclick="abrir('tecnica.html')">🛠️ Semana Técnica</button>
+  </div>
+
+ 
+
+  <footer>✨ Paleta: Chocolate, Mauve, Caramel, Orange & Shimmer ✨</footer>
+
+  <script>
+    // Config Firebase (igual que en tu index)
+    const firebaseConfig = {
+      apiKey: "AIzaSyBZB61t5yoO8-lsbbdGXGiUpl7KEFfmhAs",
+      authDomain: "tinyfeel-c1d9c.firebaseapp.com",
+      projectId: "tinyfeel-c1d9c",
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    function abrir(pagina) {
+      window.location.href = pagina;
+    }
+
+    function cerrarSesion() {
+      auth.signOut().then(() => {
+        window.location.href = "index.html";
+      });
+    }
+  </script>
+</body>
+</html>

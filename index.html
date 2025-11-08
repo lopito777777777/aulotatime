@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login / Registro - AulaTime</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(180deg, #45151B, #C74E51);
+      color: #FBDE9C;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: 2.2em;
+      margin-bottom: 40px;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    }
+
+    #authForm {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      width: 80%;
+      max-width: 300px;
+      text-align: center;
+    }
+
+    #authForm input {
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      font-size: 1em;
+    }
+
+    #authForm button {
+      background-color: #EA9DAE;
+      color: #45151B;
+      border: none;
+      padding: 12px;
+      font-size: 1em;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    #authForm button:hover {
+      background-color: #F99256;
+      color: #FBDE9C;
+      transform: scale(1.05);
+    }
+
+    footer {
+      position: absolute;
+      bottom: 10px;
+      font-size: 0.9em;
+      opacity: 0.8;
+    }
+  </style>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+</head>
+<body>
+  <h1>AulaTime</h1>
+
+  <div id="authForm">
+    <input type="email" id="email" placeholder="Correo electrónico" />
+    <input type="password" id="password" placeholder="Contraseña" />
+    <button onclick="login()">Iniciar Sesión</button>
+    <button onclick="register()">Registrarse</button>
+  </div>
+
+  <footer>✨ AulaTime ✨</footer>
+
+  <script>
+    // Config Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyBZB61t5yoO8-lsbbdGXGiUpl7KEFfmhAs",
+      authDomain: "tinyfeel-c1d9c.firebaseapp.com",
+      projectId: "tinyfeel-c1d9c",
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // Detectar si el usuario ya está logueado
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        // Usuario ya logueado, redirigir automáticamente
+        window.location.href = "pantallaprincipal.html";
+      }
+    });
+
+    // Función para iniciar sesión
+    function login() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      auth.signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          alert("¡Bienvenido " + userCredential.user.email + "!");
+          // La redirección también ocurre por onAuthStateChanged
+        })
+        .catch((error) => {
+          alert("Error al iniciar sesión: " + error.message);
+        });
+    }
+
+    // Función para registrar usuario
+    function register() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      auth.createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          alert("Cuenta creada con éxito: " + userCredential.user.email);
+          // La redirección también ocurre por onAuthStateChanged
+        })
+        .catch((error) => {
+          alert("Error al registrarse: " + error.message);
+        });
+    }
+  </script>
+</body>
+</html>
